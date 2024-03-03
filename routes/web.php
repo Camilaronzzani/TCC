@@ -13,4 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('login/equipamentos', 'Login\LoginController');
+Route::name("login")->resource('/login', 'Login\LoginController');
+
+Route::nama("cadastro")->resource('/cadastro', 'Login\CadastroController');

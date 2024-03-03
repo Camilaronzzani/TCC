@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Login\Login;
+use App\Models\Login\Cadastro;
 
-class loginController extends Controller
+class CadastroController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,18 +13,18 @@ class loginController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public $login;
+    public $cadastro;
 
     public function __construct(
-        Login $login,
+        Cadastro $cadastro,
 
     ) {
-        $this->login = $login;
+        $this->cadastro = $cadastro;
         $this->middleware('auth');
     }
     public function index()
     {
         $return = [];
-        return view('login.index', $return);
+        return view('cadastro.index', $return);
     }
 }
