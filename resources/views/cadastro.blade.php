@@ -10,6 +10,7 @@
                 <x-input name="nome" id="nome" required />
                 <x-input-error :messages="$errors->get('nome')" class="mt-2" />
 
+                    
                 <x-input name="email" type="email" id="email" required />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
