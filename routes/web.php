@@ -1,0 +1,53 @@
+<?php
+
+use App\Http\Controllers\AgendamentoController;
+use App\Http\Controllers\Auth\CadastroController;
+use App\Http\Controllers\Auth\HomeAuthController;
+use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RestaurarSenhaController;
+use App\Http\Controllers\InstituicaoController;
+use App\Http\Controllers\UsuarioController;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::middleware('guest')->group(function () {
+    Route::resource('cadastro', CadastroController::class);
+
+    Route::resource('login', LoginController::class);
+
+    Route::get('restaurar_senha', [RestaurarSenhaController::class, 'index'])->name('restaurar_senha');
+    Route::post('salvar_restaurar_senha', [RestaurarSenhaController::class, 'store'])->name('salvar_restaurar_senha');
+});
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
+Route::get('instituicao', [InstituicaoController::class, 'index'])->name('instituicao');
+
+// quem pode doar
+Route::get('/pode_doar', [HomeController::class, 'pode_doar'])->name('pode_doar');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/home_auth', [HomeAuthController::class, 'index'])->name('home_auth');
+
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::get('/alterar_dados', [UsuarioController::class, 'alterar_dados'])->name('alterar_dados');
+    Route::post('/salvar_alterar_dados', [UsuarioController::class, 'salvar_alterar_dados'])->name('salvar_alterar_dados');
+
+    // agendamento
+    Route::get('/agendamentos', [AgendamentoController::class, 'index'])->name('agendamentos');
+});
