@@ -6,6 +6,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 
 class RestaurarSenhaController extends Controller
@@ -15,13 +16,15 @@ class RestaurarSenhaController extends Controller
      */
     public function index()
     {
-        return view('auth.forgot-password');
+        return view('auth.redefinir_senha');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
+        dd($request);
+    dd($request->email);
         $request->validate([
-            'email' => ['required', 'email'],
+            'email' => 'required',
         ]);
 
         $status = Password::sendResetLink(
