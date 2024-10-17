@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RestaurarSenhaController;
+use App\Http\Controllers\EstoqueController;
 use App\Http\Controllers\InstituicaoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
@@ -50,4 +51,12 @@ Route::middleware('auth')->group(function () {
 
     // agendamento
     Route::get('/agendamentos', [AgendamentoController::class, 'index'])->name('agendamentos');
+
+
+    //estoque
+    Route::get('estoque/{id}/gerenciamento', [EstoqueController::class, 'gerenciamento'])->name('gerenciamento');
+    Route::post('estoque/{id}/store', [EstoqueController::class, 'store'])->name('store');
+
+    Route::resource('estoque', EstoqueController::class);
+
 });

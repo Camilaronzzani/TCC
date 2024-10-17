@@ -96,6 +96,9 @@
                     <li>Quem teve convulsão só poderá doar sangue após 3 anos da última crise e término do tratamento
                         medicamentoso.</li>
                 </ul>
+
+                <p class="text-right rtl:text-left text-gray-500 dark:text-gray-400">Dados tirados do site https://hemoes.es.gov.br</p>
+
             </div>
         </div>
     </div>

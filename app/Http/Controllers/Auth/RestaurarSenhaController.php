@@ -21,8 +21,6 @@ class RestaurarSenhaController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
-    dd($request->email);
         $request->validate([
             'email' => 'required',
         ]);

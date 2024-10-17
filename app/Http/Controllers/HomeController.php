@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estoque\EstoqueSangues;
 use App\Models\TipoSanguineo;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -36,8 +37,8 @@ class HomeController extends Controller
 
         if (Auth::check()) {
             return redirect()->route('home_auth');
-        }         
-            return view('home', $return);
+        }
+        return view('home', $return);
     }
 
 

@@ -29,6 +29,10 @@
                         class="text-gray-700 hover:text-red-600 transition duration-300">
                         Agendamentos
                     </a>
+
+                    <a href="/estoque" class="text-gray-700 hover:text-red-600 transition duration-300">
+                        Estoque
+                    </a>
                 @endif
 
                 <a href="{{ route('pode_doar') }}" class="text-gray-700 hover:text-red-600 transition duration-300">
@@ -90,7 +94,7 @@
                 <br>
                 João Vitor Bispo
                 <br>
-                Kathirry Horazy
+                Kathirry Fabricia
             </p>
         </div>
         <div class="pt-10 ml-20">

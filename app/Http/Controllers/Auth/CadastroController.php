@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Cadastro;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -12,12 +13,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CadastroController extends Controller
 {
-    private $cadastro;
+    private $usuario;
 
     public function __construct(
-        User $cadastro
+        User $usuario
+        
     ) {
-        $this->cadastro = $cadastro;
+        $this->usuario = $usuario;
     }
 
     public function index()
@@ -48,7 +50,7 @@ class CadastroController extends Controller
         $linha = null;
 
         DB::transaction(function () use ($request, &$linha) {
-            $linha = new $this->cadastro;
+            $linha = new $this->usuario;
             $linha->nome = $request->nome;
             $linha->email = $request->email;
             $linha->senha = Hash::make($request->senha);
