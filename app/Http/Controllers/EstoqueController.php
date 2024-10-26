@@ -22,7 +22,6 @@ class EstoqueController extends Controller
         return view('estoque.index', $return);
     }
 
-
     public function gerenciamento($id)
     {
         $entradas = EstoqueEntradas::selectRaw("
@@ -34,7 +33,7 @@ class EstoqueController extends Controller
                 nome, 
                 id_tipo_sanguineo,
                 estoque_sangues_entradas.id_cadastro as nome_funcionario")
-            ->join('usuarios', 'estoque_sangues_entradas.id_usuario', '=', 'usuarios.id')
+            ->join('users', 'estoque_sangues_entradas.id_usuario', '=', 'users.id')
             ->join('estoque_sangues', 'estoque_sangues.id', 'id_estoque')
             ->where('id_tipo_sanguineo', $id);
 
@@ -47,13 +46,14 @@ class EstoqueController extends Controller
                 id_tipo_sanguineo,
                 nome, 
                 estoque_sangues_saidas.id_cadastro as nome_funcionario")
-            ->leftJoin('usuarios', 'estoque_sangues_saidas.id_usuario', '=', 'usuarios.id')
+            ->leftJoin('users', 'estoque_sangues_saidas.id_usuario', '=', 'users.id')
             ->join('estoque_sangues', 'estoque_sangues.id', 'id_estoque')
             ->where('id_tipo_sanguineo', $id);
 
         $linhas = $saidas->union($entradas)->get();
 
         $return = [
+            'total' => $linhas->sum('quantidade'),
             'registros' => $linhas,
             'id' => TipoSanguineo::findOrFail($id),
             'cadastrados' => Cadastro::pluck('nome', 'id'),

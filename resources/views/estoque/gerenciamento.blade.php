@@ -6,6 +6,11 @@
             Movimentação Tipo: {{ $id->tipos }}
             <span class="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-80 h-1 bg-red-600"></span>
         </h2>
+        <div class="text-left mb-4">
+            <p class="text-lg font-semibold text-gray-700">
+                Total Quantidade: {{ $total }} /1000
+            </p>
+        
         <div class="flex justify-end mb-6">
             <button id="openModalButton"
                 class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 mr-3">

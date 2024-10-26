@@ -17,13 +17,6 @@
             <x-input-error :messages="$errors->get('senha')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-between mb-6">
-            <a class="text-sm text-red-600 hover:text-red-900 transition duration-200"
-                href="{{ route('restaurar_senha') }}">
-                Esqueceu a senha?
-            </a>
-        </div>
-
         <div>
             <x-primary-button id="login-button">Login</x-primary-button>
         </div>

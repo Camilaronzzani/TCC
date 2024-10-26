@@ -7,12 +7,17 @@ use App\Models\TipoSanguineo;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        $estoques = EstoqueSangues::with('entradas', 'saidas')->get();
+
         $return = [
+            'estoques' => $estoques,
+
             'tipos' => TipoSanguineo::pluck('tipos', 'id'),
 
             'perguntas' => [

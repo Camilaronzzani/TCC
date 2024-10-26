@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsuarioController extends Controller
 {
+    private $usuario;
+
+    public function __construct(
+        User $usuario
+        
+    ) {
+        $this->usuario = $usuario;
+    }
 
     public function alterar_dados()
     {
@@ -16,22 +27,24 @@ class UsuarioController extends Controller
 
     public function salvar_alterar_dados(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:usuarios,email,' . auth()->id(),
+        $validator = Validator::make($request->all(), [
+           'nome' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . auth()->id(),
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
-        $user = auth()->user();
-        $user->nome = $request->nome;
-        $user->email = $request->email;
-
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
         }
 
-        $user->save();
-
-        return redirect()->back()->with('success', 'Dados atualizados com sucesso!');
+        DB::transaction(function () use ($request) {
+            $linha = $this->usuario->findOrFail($request->id);
+            $linha->nome = $request->nome;
+            $linha->email = $request->email;
+            $linha->senha = Hash::make($request->senha);
+            $linha->save();
+        });
+        
+        return redirect()->route('alterar_dados')->with('success', 'Alterar dados com sucesso!');
     }
 }

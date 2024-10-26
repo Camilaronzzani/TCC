@@ -108,50 +108,20 @@
             <img src="{{ asset('img/banco.jpeg') }}" alt="Estoque Banco" />
             <div class="absolute inset-0 flex justify-end items-end">
                 <ul class="grid grid-cols-4 md:grid-cols-8 mr-10 rounded-lg p-4">
-                    <li class="flex flex-col items-center text-center p-4 rounded">
-                        <span class="font-bold text-xl text-white">A-</span>
-                        <img alt="Crítico" src="{{ asset('img/Crítico.png') }}" class="w-9 h-12 my-4" />
-                        <span class="text-lg text-white">Crítico</span>
-                    </li>
-                    <li class="flex flex-col items-center text-center p-4 rounded">
-                        <span class="font-bold text-xl text-white">A+</span>
-                        <img alt="Estável" src="{{ asset('img/Estável.png') }}" class="w-9 h-12 my-4" />
-                        <span class="text-lg text-white">Estável</span>
-                    </li>
-                    <li class="flex flex-col items-center text-center p-4 rounded">
-                        <span class="font-bold text-xl text-white">B-</span>
-                        <img alt="Alerta" src="{{ asset('img/Alerta.png') }}" class="w-9 h-12 my-4" />
-                        <span class="text-lg text-white">Alerta</span>
-                    </li>
-                    <li class="flex flex-col items-center text-center p-4 rounded">
-                        <span class="font-bold text-xl text-white">B+</span>
-                        <img alt="Estável" src="{{ asset('img/Estável.png') }}" class="w-9 h-12 my-4" />
-                        <span class="text-lg text-white">Estável</span>
-                    </li>
-                    <li class="flex flex-col items-center text-center p-4 rounded">
-                        <span class="font-bold text-xl text-white">AB-</span>
-                        <img alt="Alerta" src="{{ asset('img/Alerta.png') }}" class="w-9 h-12 my-4" />
-                        <span class="text-lg text-white">Alerta</span>
-                    </li>
-                    <li class="flex flex-col items-center text-center p-4 rounded">
-                        <span class="font-bold text-xl text-white">AB+</span>
-                        <img alt="Alerta" src="{{ asset('img/Alerta.png') }}" class="w-9 h-12 my-4" />
-                        <span class="text-lg text-white">Alerta</span>
-                    </li>
-                    <li class="flex flex-col items-center text-center p-4 rounded">
-                        <span class="font-bold text-xl text-white">O-</span>
-                        <img alt="Crítico" src="{{ asset('img/Crítico.png') }}" class="w-9 h-12 my-4" />
-                        <span class="text-lg text-white">Crítico</span>
-                    </li>
-                    <li class="flex flex-col items-center text-center p-4 rounded">
-                        <span class="font-bold text-xl text-white">O+</span>
-                        <img alt="Estável" src="{{ asset('img/Estável.png') }}" class="w-9 h-12 my-4" />
-                        <span class="text-lg text-white">Estável</span>
-                    </li>
+                    @foreach ($estoques as $estoque)
+                        <li class="flex flex-col items-center text-center p-4 rounded">
+                            <span class="font-bold text-xl text-white">{{ $estoque->tipo_sanguineo }}</span>
+                            <img alt="{{ $estoque->status }}"
+                                 src="{{ asset('img/' . $estoque->status . '.png') }}"
+                                 class="w-9 h-12 my-4" />
+                            <span class="text-lg text-white">{{ $estoque->status }}</span>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
     </section>
+    
 
     {{-- duvidas --}}
     <h2 class="text-3xl font-bold text-center text-red-600 mb-8 mt-10 relative">

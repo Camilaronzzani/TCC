@@ -1,76 +1,32 @@
 @extends('layouts.app')
 @section('title', 'Alterar Dados')
 @section('content')
-    <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg mt-10 mb-5">
-        <h2 class="text-2xl font-bold text-center text-red-600">Alterar Dados</h2>
-        <form id="alterar-form" class="p-8 bg-white rounded-lg max-w-md mx-auto">
-            @csrf
-            <div class="mb-6">
-                <x-input name="nome" id="nome" required :value="auth()->user()->nome" />
-                <x-input-error :messages="$errors->get('nome')" class="mt-2" />
+    <form method="POST" action="{{ route('salvar_alterar_dados') }}" id="alterar-form"
+        class="p-8 bg-white rounded-lg shadow-lg max-w-md mx-auto mt-10 m-10">
+        @csrf
+        <h2 class="text-center text-3xl font-bold text-red-600 mb-6">Alterar Dados</h2>
 
-                <x-input name="email" id="email" required :value="auth()->user()->email" type="email" />
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <x-input-error :messages="$errors->get('update')" class="mt-2" />
 
-                <x-input name="senha" id="senha" type="password" />
-                <x-input-error :messages="$errors->get('senha')" class="mt-2" />
+        <div class="row">
+            <x-input name="nome" id="nome" required placeholder="Seu nome" :value="auth()->user()->nome" />
+            <x-input-error :messages="$errors->get('nome')" class="mt-2" />
 
-                <x-input name="confirme_a_senha" id="confirme_a_senha" type="email" type="password" />
-                <x-input-error :messages="$errors->get('confirme_a_senha')" class="mt-2" />
-            </div>
-            <x-primary-button id="alterar_dados">Alterar Dados</x-primary-button>
-        </form>
-    </div>
-@endsection
-@section('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('alterar-form');
-            const button = document.getElementById('alterar_dados');
-            console.log(form, button);
+            <x-input name="email" type="email" id="email" required placeholder="Seu email" :value="auth()->user()->email" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const formData = new FormData(form);
+            <x-input name="password" type="password" id="password" placeholder="Nova senha (opcional)" />
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
-                button.disabled = true;
-                button.textContent = 'Carregando...';
-
-                const appUrl =
-                    '{{ env('APP_URL') }}';
-
-                fetch(appUrl + '/salvar_alterar_dados', {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Accept': 'application/json',
-                        }
-                    })
-                    .then(response => {
-                        console.log(response)
-                        if (!response.ok) {
-                            throw new Error('Erro na requisição');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            alert('Login realizado com sucesso!');
-                            window.location.href = '{{ route('salvar_alterar_dados') }}';
-                        } else {
-                            alert(data.message || 'Erro.');
-                        }
-                    })
-                    .catch(error => {
-                        console.log(errors)
-                        alert(error);
-                    })
-                    .finally(() => {
-                        button.disabled = false;
-                        button.textContent = 'Alterar Dados';
-                    });
-            });
-        });
-    </script>
+            <x-input name="password_confirmation" type="password" id="password_confirmation"
+                placeholder="Confirme a senha" />
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
+        <div hidden>
+            <x-input name="id" :value="auth()->user()->id" />
+        </div>
+        <div>
+            <x-primary-button id="alterar-button">Alterar Dados</x-primary-button>
+        </div>
+    </form>
 @endsection

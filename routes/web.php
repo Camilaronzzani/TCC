@@ -27,19 +27,15 @@ Route::middleware('guest')->group(function () {
     Route::resource('cadastro', CadastroController::class);
 
     Route::resource('login', LoginController::class);
-
-    Route::get('restaurar_senha', [RestaurarSenhaController::class, 'index'])->name('restaurar_senha');
-    Route::post('salvar_restaurar_senha', [RestaurarSenhaController::class, 'store'])->name('salvar_restaurar_senha');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-
 Route::get('instituicao', [InstituicaoController::class, 'index'])->name('instituicao');
+
 
 // quem pode doar
 Route::get('/pode_doar', [HomeController::class, 'pode_doar'])->name('pode_doar');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/home_auth', [HomeAuthController::class, 'index'])->name('home_auth');
@@ -50,13 +46,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/salvar_alterar_dados', [UsuarioController::class, 'salvar_alterar_dados'])->name('salvar_alterar_dados');
 
     // agendamento
-    Route::get('/agendamentos', [AgendamentoController::class, 'index'])->name('agendamentos');
-
+    Route::get('agendamentos', [AgendamentoController::class, 'index'])->name('agendamentos');
+    Route::delete('/agendamentos/{id}', [AgendamentoController::class, 'destroy'])->name('agendamentos.destroy');
+    Route::put('agendamentos/{id}', [AgendamentoController::class, 'update'])->name('editar_agendamentos');
 
     //estoque
     Route::get('estoque/{id}/gerenciamento', [EstoqueController::class, 'gerenciamento'])->name('gerenciamento');
     Route::post('estoque/{id}/store', [EstoqueController::class, 'store'])->name('store');
 
     Route::resource('estoque', EstoqueController::class);
-
 });
