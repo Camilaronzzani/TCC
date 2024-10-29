@@ -76,7 +76,7 @@
     <section class="py-10">
         <div class="container mx-auto px-4">
             <div class="flex justify-center">
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-8">
                     <a href="{{ route('pode_doar') }}"
                         class="border shadow-lg p-8 text-center hover:bg-gray-100 transition duration-300">
                         <img src="{{ asset('img/gota.png') }}" alt="Quem Pode Doar" class="w-12 h-12 mx-auto mb-4" />
@@ -84,13 +84,7 @@
                         <p class="text-gray-700">Saiba quem pode se tornar um doador de sangue e quais são os requisitos.
                         </p>
                     </a>
-                    <a href="{{ route('login.index') }}"
-                        class="border border-gray-300 rounded-lg shadow-lg p-8 text-center hover:bg-gray-100 transition duration-300">
-                        <img src="{{ asset('img/duvida.png') }}" alt="Perguntas Frequentes"
-                            class="w-12 h-12 mx-auto mb-4" />
-                        <h3 class="text-xl font-semibold mb-2">Perguntas Frequentes</h3>
-                        <p class="text-gray-700">Respostas para as perguntas mais comuns sobre doação de sangue.</p>
-                    </a>
+
                     <a href="{{ route('login.index') }}"
                         class="border border-gray-300 rounded-lg shadow-lg p-8 text-center hover:bg-gray-100 transition duration-300">
                         <img src="{{ asset('img/calendario.png') }}" alt="Agendar" class="w-16 h-16 mx-auto mb-4" />
@@ -110,7 +104,7 @@
                 <ul class="grid grid-cols-4 md:grid-cols-8 mr-10 rounded-lg p-4">
                     @foreach ($estoques as $estoque)
                         <li class="flex flex-col items-center text-center p-4 rounded">
-                            <span class="font-bold text-xl text-white">{{ $estoque->tipo_sanguineo }}</span>
+                            <span class="font-bold text-xl text-white">{{ $estoque->tipos->tipos }}</span>
                             <img alt="{{ $estoque->status }}"
                                  src="{{ asset('img/' . $estoque->status . '.png') }}"
                                  class="w-9 h-12 my-4" />
@@ -122,7 +116,6 @@
         </div>
     </section>
     
-
     {{-- duvidas --}}
     <h2 class="text-3xl font-bold text-center text-red-600 mb-8 mt-10 relative">
         Dúvidas Frequentes

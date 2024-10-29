@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\Estoque;
 
+use App\Models\TipoSanguineo;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +12,11 @@ class EstoqueSangues extends Model implements Authenticatable
     use HasFactory, AuthenticatableTrait;
 
     protected $table = 'estoque_sangues';
+
+    public function tipos()
+    {
+        return $this->belongsTo(TipoSanguineo::class, 'id_tipo_sanguineo', 'id');
+    }
 
     public function saidas()
     {

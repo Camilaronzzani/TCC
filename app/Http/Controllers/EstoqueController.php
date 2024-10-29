@@ -31,9 +31,8 @@ class EstoqueController extends Controller
                 estoque_sangues_entradas.created_at, 
                 'Entrada' as tipo, 
                 nome, 
-                id_tipo_sanguineo,
-                estoque_sangues_entradas.id_cadastro as nome_funcionario")
-            ->join('users', 'estoque_sangues_entradas.id_usuario', '=', 'users.id')
+                id_tipo_sanguineo")
+            ->join('users', 'users.id', 'estoque_sangues_entradas.id_usuario')
             ->join('estoque_sangues', 'estoque_sangues.id', 'id_estoque')
             ->where('id_tipo_sanguineo', $id);
 
@@ -44,9 +43,8 @@ class EstoqueController extends Controller
                 estoque_sangues_saidas.created_at, 
                 'Saída' as tipo, 
                 id_tipo_sanguineo,
-                nome, 
-                estoque_sangues_saidas.id_cadastro as nome_funcionario")
-            ->leftJoin('users', 'estoque_sangues_saidas.id_usuario', '=', 'users.id')
+                nome")
+            ->join('users', 'users.id','estoque_sangues_saidas.id_usuario')
             ->join('estoque_sangues', 'estoque_sangues.id', 'id_estoque')
             ->where('id_tipo_sanguineo', $id);
 
