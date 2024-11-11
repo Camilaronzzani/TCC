@@ -30,9 +30,6 @@ class EstoqueSangues extends Model implements Authenticatable
 
     public function getQuantidadeAtualAttribute()
     {
-        // Garante que as relações estão carregadas
-        $this->loadMissing('entradas', 'saidas');
-
         return $this->entradas->sum('quantidade') - $this->saidas->sum('quantidade');
     }
 

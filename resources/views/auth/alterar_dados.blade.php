@@ -15,10 +15,10 @@
             <x-input name="email" type="email" id="email" required placeholder="Seu email" :value="auth()->user()->email" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
-            <x-input name="password" type="password" id="password" placeholder="Nova senha (opcional)" />
+            <x-input name="senha" type="password" id="password" placeholder="Nova senha (opcional)" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
-            <x-input name="password_confirmation" type="password" id="password_confirmation"
+            <x-input name="confirmar_senha" type="password" id="password_confirmation"
                 placeholder="Confirme a senha" />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>

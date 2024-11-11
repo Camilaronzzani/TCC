@@ -47,12 +47,13 @@ Route::middleware('auth')->group(function () {
 
     // agendamento
     Route::get('agendamentos', [AgendamentoController::class, 'index'])->name('agendamentos');
+    Route::post('agendamentos', [AgendamentoController::class, 'store'])->name('cadastrar_gerenciamento');
     Route::delete('/agendamentos/{id}', [AgendamentoController::class, 'destroy'])->name('agendamentos.destroy');
     Route::put('agendamentos/{id}', [AgendamentoController::class, 'update'])->name('editar_agendamentos');
 
     //estoque
     Route::get('estoque/{id}/gerenciamento', [EstoqueController::class, 'gerenciamento'])->name('gerenciamento');
-    Route::post('estoque/{id}/store', [EstoqueController::class, 'store'])->name('store');
+    Route::put('estoque/{id}/store', [EstoqueController::class, 'store'])->name('store');
 
     Route::resource('estoque', EstoqueController::class);
 });

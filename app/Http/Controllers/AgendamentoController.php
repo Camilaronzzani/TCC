@@ -15,14 +15,23 @@ class AgendamentoController extends Controller
 
     public function index()
     {
+        $linha = Auth::user()->id;
+
+        $agendamentos = AgendamentoDoacao::join('cadastros', 'agendamentos_doacoes.id_cadastros', '=', 'cadastros.id')
+            ->join('tipos_sanguineos', 'cadastros.id_tipo_sanguineo', '=', 'tipos_sanguineos.id')
+            ->where('cadastros.id', $linha)
+            ->select('agendamentos_doacoes.*', 'cadastros.nome', 'cadastros.telefone', 'tipos_sanguineos.tipos')
+            ->get();
+
+        $tipos = TipoSanguineo::pluck('tipos', 'id');
+
         $return = [
-            'agendamentos' => AgendamentoDoacao::join('cadastros', 'agendamentos_doacoes.id_cadastros', '=', 'cadastros.id')
-                ->join('tipos_sanguineos', 'cadastros.id_tipo_sanguineo', '=', 'tipos_sanguineos.id')
-                ->where('id_cadastros', Auth::user()->cadastro->first()->id)->get(),
-            'tipos' => TipoSanguineo::pluck('tipos', 'id'),
+            'agendamentos' => $agendamentos,
+            'tipos' => $tipos,
         ];
         return view('agendamentos.index', $return);
     }
+
 
     public function store(Request $request)
     {
@@ -35,7 +44,7 @@ class AgendamentoController extends Controller
             'cep' => 'required|numeric',
             'endereco' => 'required|string|max:255',
             'cidade' => 'required|string|max:255',
-            'estado' => 'required|string|max:2',
+            'estado' => 'required|string|',
         ]);
 
         if ($validator->fails()) {
@@ -65,7 +74,7 @@ class AgendamentoController extends Controller
     public function destroy($id)
     {
         $agendamento = AgendamentoDoacao::findOrFail($id);
-    
+
         if ($agendamento) {
             $agendamento->delete();
             return redirect()->route('agendamentos')->with('success', 'Agendamento excluído com sucesso.');
@@ -73,7 +82,7 @@ class AgendamentoController extends Controller
             return redirect()->route('agendamentos')->with('error', 'Agendamento não encontrado.');
         }
     }
-    
+
 
     public function update(Request $request, $id)
     {

@@ -9,7 +9,7 @@
             <span class="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-80 h-1 bg-red-600"></span>
         </h2>
 
-        <div class="flex flex-col justify-center mt-6 relative z-10">
+        <div class="flex flex-col justify-center mt-6 relative ">
             <!-- Mapa -->
             <div id="map" class="w-full h-96 mb-6"></div>
 
@@ -18,19 +18,17 @@
                 <button
                     class="border rounded-lg shadow-lg p-5 text-center hover:bg-gray-100 transition duration-300 flex items-center w-96"
                     id="hemonucleo">
-                    <img src="{{ asset('img/icon_doacao.png') }}" class="w-16 h-16 object-contain mr-3" />
-                    <h3 class="text-xl font-semibold">Hemonúcleo de Foz do Iguaçu</h3>
+                    <img src="{{ asset('img/images.png') }}" class="w-16 h-16 object-contain mr-3" />
+                    <h3 class="text-xl font-semibold">Banco de Sangue Cascavel</h3>
                 </button>
                 <button
                     class="border rounded-lg shadow-lg p-5 text-center hover:bg-gray-100 transition duration-300 flex items-center w-96"
                     id="hemocentro">
                     <img src="{{ asset('img/icon_doacao.png') }}" class="w-16 h-16 object-contain mr-3" />
-                    <h3 class="text-xl font-semibold">Hemocentro Regional De Cascavel</h3>
+                    <h3 class="text-xl font-semibold">Hemonúcleo de Foz do Iguaçu</h3>
                 </button>
             </div>
         </div>
-
-
     @endsection
 
     @section('scripts')
@@ -69,7 +67,7 @@
                         m.head.append(a)
                     }));
                 d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() =>
-                    d[l](f, ...n))
+                    d[l](f, ...n)) 
             })({
                 // favor n pegar a chave
                 key: "AIzaSyDvzhhWoMK9nmchNMfkHeYsHZLV48ACKAQ",
@@ -82,8 +80,8 @@
 
             async function initMap() {
                 const initialPosition = {
-                    lat: -25.498405,
-                    lng: -54.5705818
+                    lat: -24.9599806,
+                    lng: -53.4624190
                 };
 
                 const {
