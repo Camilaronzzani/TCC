@@ -1,10 +1,8 @@
 @extends('layouts.app')
-
 @section('title', 'Instituições')
-
 @section('content')
     <div class="container m-2 relative">
-        <h2 class="text-3xl text-center font-semibold mb-3 mt-5 relative">
+        <h2 class="text-3xl text-center font-semibold mb-3 mt-5 relative text-red-600">
             Instituições
             <span class="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-80 h-1 bg-red-600"></span>
         </h2>
@@ -33,19 +31,8 @@
 
     @section('scripts')
         <script>
-            // Funções para abrir e fechar o modal
-            function openModal() {
-                document.getElementById('modal').classList.remove('hidden');
-            }
-
-            function closeModal() {
-                document.getElementById('modal').classList.add('hidden');
-            }
-        </script>
-
-        <script>
             (g => {
-                var h, a, k, p = "The Google Maps JavaScript API",
+                var h, a, k, p = "Google Maps JavaScript API",
                     c = "google",
                     l = "importLibrary",
                     q = "__ib__",
@@ -67,7 +54,7 @@
                         m.head.append(a)
                     }));
                 d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() =>
-                    d[l](f, ...n)) 
+                    d[l](f, ...n))
             })({
                 // favor n pegar a chave
                 key: "AIzaSyDvzhhWoMK9nmchNMfkHeYsHZLV48ACKAQ",
@@ -123,7 +110,6 @@
                     marker.title = "Hemocentro Regional De Cascavel";
                 });
             }
-
             initMap();
         </script>
     @endsection

@@ -30,7 +30,7 @@
                             <td class="py-3 px-4 border-b">{{ $agendamento->nome }}</td>
                             <td class="py-3 px-4 border-b">{{ $agendamento->telefone }}</td>
                             <td class="py-3 px-4 border-b">
-                                {{ \Carbon\Carbon::parse($agendamento->data_agendamento)->format('d/m/Y') }}
+                                {{ \Carbon\Carbon::parse($agendamento->data_hora_agendamento)->format('d/m/Y') ?? null }}
                             </td>
                             <td class="py-3 px-4 border-b">{{ $agendamento->tipos }}</td>
                             <td class="py-3 px-4 border-b text-center space-x-2">
@@ -38,7 +38,6 @@
                                     class="bg-yellow-400 hover:bg-yellow-300 text-white font-bold py-2 px-4 rounded">
                                     Editar
                                 </button>
-
                                 <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST"
                                     onsubmit="return confirm('Tem certeza que deseja excluir este agendamento?');"
                                     class="inline">
@@ -60,14 +59,17 @@
     <div id="editModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
             <h2 class="text-xl font-bold mb-4">Editar Agendamento</h2>
-            <form id="editForm" method="POST" action="">
+            </h2>
+            <form id="editForm" method="POST" action="{{ route('editar_agendamentos', ['id' => 0]) }}">
                 @csrf
                 @method('PUT')
-                <x-input name="nome" displayName="Nome Completo" id="editNome" />
-                <x-input name="telefone" displayName="Telefone" id="editTelefone" />
-                <x-input name="data_agendamento" type="date" displayName="Data do Agendamento" id="editData" />
-                <x-select name="tipos" :data="$tipos" displayName="Tipo Sanguíneo" id="editTipo" />
-
+                <x-input name="nome" displayName="Nome Completo" id="id_nome" :value="Auth::user()->cadastro->first()->nome ?? null" disabled/>
+                <x-input name="telefone" displayName="Telefone" id="id_telefone" :value="Auth::user()->cadastro->first()->telefone ?? null" type="number" disabled/>
+                <x-input name="data_agendamento" type="date" displayName="Data do Agendamento" id="id_data"
+                    :value="Auth::user()->cadastro->first() != null
+                        ? Auth::user()->cadastro->first()->agendamento->first()->data_hora_agendamento
+                        : null" />
+                <x-select name="tipos" :data="$tipos" displayName="Tipo Sanguíneo" id="id_tipo" :value="Auth::user()->cadastro->first()->id_tipo_sanguineo ?? null" />
                 <div class="flex justify-end mt-4">
                     <button type="button" onclick="closeModal()"
                         class="bg-gray-400 text-white px-4 py-2 rounded mr-2">Cancelar</button>
@@ -76,17 +78,25 @@
             </form>
         </div>
     </div>
-
     <script>
         function openModal(agendamento) {
             const editForm = document.getElementById('editForm');
             editForm.action = `/agendamentos/${agendamento.id}`;
-            document.getElementById('editNome').value = agendamento.nome;
-            document.getElementById('editTelefone').value = agendamento.telefone;
-            document.getElementById('editData').value = agendamento.data_agendamento;
-            document.getElementById('editTipo').value = agendamento.id_tipo_sanguineo;
+
+            const nomeInput = document.getElementById('id_nome');
+            const telefoneInput = document.getElementById('id_telefone');
+            const dataInput = document.getElementById('id_data');
+            const tipoInput = document.getElementById('id_tipo');
+
+            if (nomeInput) nomeInput.value = agendamento.nome;
+            if (telefoneInput) telefoneInput.value = agendamento.telefone;
+            if (dataInput) dataInput.value = agendamento.data_agendamento;
+            if (tipoInput) tipoInput.value = agendamento.id_tipo_sanguineo;
+
             document.getElementById('editModal').classList.remove('hidden');
         }
+
+
 
         function closeModal() {
             document.getElementById('editModal').classList.add('hidden');

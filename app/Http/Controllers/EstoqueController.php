@@ -50,15 +50,14 @@ class EstoqueController extends Controller
 
         $linhas = $saidas->union($entradas)->get();
 
-        $estoque = EstoqueSangues::findOrFail($id);
+        $estoque = EstoqueSangues::find($id);
 
         $return = [
-            'total' => $estoque->quantidade_atual,
+            'total' => $estoque->quantidade_atual ?? 0,
             'registros' => $linhas,
             'id' => TipoSanguineo::findOrFail($id),
             'cadastrados' => Cadastro::pluck('nome', 'id'),
         ];
-
         return view('estoque.gerenciamento', $return);
     }
 
@@ -72,12 +71,11 @@ class EstoqueController extends Controller
                 'min:0',
                 'numeric',
                 function ($attribute, $value, $fail) use ($request) {
-                    $estoque = EstoqueSangues::findOrFail($request->id);
-                    if ($estoque->quantidade_atual >= $estoque->capacidade_maxima) {
-                        if ($value > 1000) {
-                            return $fail('Não é permitido adicionar mais que 1000 quando o estoque está cheio.');
-                        }
+                    $estoque = EstoqueSangues::find($request->id);
+                    if ($request->tipo == 1 && $value >= 10000) {
+                        return $fail('Não é permitido adicionar mais de 10.000 unidades.');
                     }
+    
                     if ($request->tipo == 2 && $value > $estoque->quantidade_atual) {
                         return $fail('Quantidade de saída indisponível no estoque!');
                     }
@@ -89,7 +87,7 @@ class EstoqueController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        if ($request->tipo == 1) { 
+        if ($request->tipo == 1) {
             $entrega = new EstoqueEntradas();
             $entrega->id_estoque = $request->id;
             $entrega->quantidade = $request->quantidade;
@@ -98,7 +96,7 @@ class EstoqueController extends Controller
             $entrega->save();
         }
 
-        if ($request->tipo == 2) { 
+        if ($request->tipo == 2) {
             $entrega = new EstoqueSaidas();
             $entrega->id_estoque = $request->id;
             $entrega->quantidade = $request->quantidade;

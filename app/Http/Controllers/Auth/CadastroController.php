@@ -17,7 +17,7 @@ class CadastroController extends Controller
 
     public function __construct(
         User $usuario
-        
+
     ) {
         $this->usuario = $usuario;
     }
@@ -31,7 +31,7 @@ class CadastroController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nome' => 'required',
-            'email' => 'required|email|unique:usuarios,email',
+            'email' => 'required|email|unique:users,email',
             'senha' => 'min:6|required_with:confirme_senha|same:confirme_senha',
             'confirme_senha' => 'min:6',
         ], [

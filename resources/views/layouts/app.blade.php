@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="pt-BR">
 
 <head>
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
     <link rel="icon" href="{{ asset('img/logo.png') }}">
 </head>
 
-<body class="font-sans antialiased ">
+<body>
     <header class="fixed w-full bg-white shadow-md z-20">
         <nav class="container mx-auto px-4 py-4 flex flex-wrap items-center">
             <a href="{{ url('/') }}" class="flex items-center text-xl font-bold text-red-600">
@@ -29,10 +29,11 @@
                         class="text-gray-700 hover:text-red-600 transition duration-300">
                         Agendamentos
                     </a>
-
-                    <a href="/estoque" class="text-gray-700 hover:text-red-600 transition duration-300">
-                        Estoque
-                    </a>
+                    @if (Auth::user()->id == 1)
+                        <a href="/estoque" class="text-gray-700 hover:text-red-600 transition duration-300">
+                            Estoque
+                        </a>
+                    @endif
                 @endif
 
                 <a href="{{ route('pode_doar') }}" class="text-gray-700 hover:text-red-600 transition duration-300">

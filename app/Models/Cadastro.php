@@ -10,4 +10,10 @@ class Cadastro extends Model
     use HasFactory;
     use HasFactory;
     protected $table = "cadastros";
+
+
+    public function agendamento()
+    {
+        return $this->hasMany(AgendamentoDoacao::class, 'id_cadastros', 'id');
+    }
 }

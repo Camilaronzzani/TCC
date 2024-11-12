@@ -7,7 +7,7 @@
             <span class="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-80 h-1 bg-red-600"></span>
         </h2>
         <div class="grid grid-cols-4 gap-4">
-            @foreach ($estoque as $index => $estoques)
+            @foreach ($estoque as $estoques)
                 <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg">
                     <h5 class="mb-2 text-4xl font-bold tracking-tight text-red-600">{{ $estoques->tipos }}</h5>
                     <a href="{{ url('estoque/' . $estoques->id . '/gerenciamento') }}"

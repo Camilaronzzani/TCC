@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
 
     // agendamento
     Route::get('agendamentos', [AgendamentoController::class, 'index'])->name('agendamentos');
-    Route::post('agendamentos', [AgendamentoController::class, 'store'])->name('cadastrar_gerenciamento');
+    Route::post('agendamentos', [AgendamentoController::class, 'store'])->name('agendamentos.store');
     Route::delete('/agendamentos/{id}', [AgendamentoController::class, 'destroy'])->name('agendamentos.destroy');
     Route::put('agendamentos/{id}', [AgendamentoController::class, 'update'])->name('editar_agendamentos');
 
