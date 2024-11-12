@@ -16,14 +16,14 @@
                 <button
                     class="border rounded-lg shadow-lg p-5 text-center hover:bg-gray-100 transition duration-300 flex items-center w-96"
                     id="hemonucleo">
-                    <img src="{{ asset('img/images.png') }}" class="w-16 h-16 object-contain mr-3" />
-                    <h3 class="text-xl font-semibold">Banco de Sangue Cascavel</h3>
+                    <img src="{{ asset('img/hmcc.png') }}" class="w-16 h-16 object-contain mr-3" />
+                    <h3 class="text-xl font-semibold">Hemonúcleo de Foz do Iguaçu</h3>
                 </button>
                 <button
                     class="border rounded-lg shadow-lg p-5 text-center hover:bg-gray-100 transition duration-300 flex items-center w-96"
                     id="hemocentro">
                     <img src="{{ asset('img/icon_doacao.png') }}" class="w-16 h-16 object-contain mr-3" />
-                    <h3 class="text-xl font-semibold">Hemonúcleo de Foz do Iguaçu</h3>
+                    <h3 class="text-xl font-semibold">Banco Exemplo</h3>
                 </button>
             </div>
         </div>
@@ -67,8 +67,8 @@
 
             async function initMap() {
                 const initialPosition = {
-                    lat: -24.9599806,
-                    lng: -53.4624190
+                    lat: -25.498405,
+                    lng: -54.5705818
                 };
 
                 const {
